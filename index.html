@@ -57,20 +57,20 @@
         <h2>Travel &amp; Stay</h2>
       </div>
       <div class="travel-grid">
-        <a href="hotels-accommodations.html" class="card-link">
+        <a href="Laura-michael/hotels-accommodations.html" class="card-link">
         <article class="info-card">
           <h3>Hotels</h3>
           <p>For guests visiting from out of town, here are a few convenient places to stay
             near the wedding weekend festivities.</p>
         </article>
         </a>
-        <a href="mikehayes.com/Laura-michael" class="card-link">
+        <a href="Laura-michael.html" class="card-link">
         <article class="info-card">
           <h3>The Wedding Website</h3>
           <p>Check into the wedding website for the latest updates and details.</p>
         </article>
         </a>
-       <a href="things-to-do.html" class="card-link">
+       <a href="Laura-michael/things-to-do.html" class="card-link">
          <article class="info-card">
            <h3>Things To Do</h3>
            <p>Downtown Sandusky, the waterfront, and Lake Erie spots make a fun weekend for out-of-town guests. Here are some of our favorites!!!</p>
@@ -79,38 +79,81 @@
       </div>
     </section>
 
-    <section class="section wrap" id="rsvp">
-      <div class="section-head">
-        <p class="eyebrow">Get in Touch</p>
-        <h2>Contact Us</h2>
-        <p class="section-copy">We’re glad you’re here. Whether you're reaching out about visiting Sandusky, boating on Lake Erie, visiting Cedar Point or just want to say hello—feel free to connect.</p>
-      </div>
+ <section class="section wrap" id="rsvp">
+  <div class="section-head">
+    <p class="eyebrow">Get in Touch</p>
+    <h2>Contact Us</h2>
+    <p class="section-copy">
+      We’re glad you’re here. Whether you're reaching out about visiting Sandusky,
+      boating on Lake Erie, visiting Cedar Point or just want to say hello—feel free to connect.
+    </p>
+  </div>
 
-      <form id="contactForm" class="rsvp-form" action="contact-form-handler.php" method="POST">
-        <div class="form-grid">
-          <label>
-            Full Name
-            <input type="text" name="fullName" required />
-          </label>
+  <form id="contactForm" class="rsvp-form">
+    <div class="form-grid">
+      <label>
+        Full Name
+        <input type="text" name="fullName" required />
+      </label>
 
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+    </div>
 
-        </div>
+    <label>
+      Message
+      <textarea name="notes" rows="4" placeholder="What would you like to say?" required></textarea>
+    </label>
 
-        <label>
-          Message
-          <textarea name="notes" rows="4" placeholder="What would you like to say?"></textarea>
-        </label>
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Send Message</button>
+      <p id="formStatus" class="form-status" aria-live="polite"></p>
+    </div>
+  </form>
+</section>
 
-        <div class="form-actions">
-          <button type="submit" class="btn primary">Send Message</button>
-          <p id="formStatus" class="form-status" aria-live="polite"></p>
-        </div>
-      </form>
-    </section>
+<script>
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("formStatus");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    statusEl.textContent = "Sending...";
+
+    const formData = new FormData(form);
+    const data = {
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      notes: formData.get("notes")
+    };
+
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzAfDh8A5bssL-fTF2sBipblE31zCEfolXQPPovbQRuHCucpP3ckyb8qUpzl5b5Knk2/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.result === "success") {
+        statusEl.textContent = "Thanks! Your message has been sent.";
+        form.reset();
+      } else {
+        statusEl.textContent = "Sorry, there was a problem sending your message.";
+        console.error(result.message);
+      }
+    } catch (error) {
+      statusEl.textContent = "Sorry, there was a problem sending your message.";
+      console.error(error);
+    }
+  });
+</script>
   </main>
 
   <footer class="footer">
@@ -120,9 +163,5 @@
     </div>
   </footer>
 
-  <script>
-    window.RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhN6H_ygTVQNmCnjzAKOBobSBve5Ax1VGTdCrNxM1oUUIgHX6aSYMpY9sPnYg9Fr9J/exec';
-  </script>
-  <script src="script.js"></script>
 </body>
 </html>
