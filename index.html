@@ -2,476 +2,127 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mike Hayes</title>
-  <meta name="description" content="Simple landing page for Mike Hayes with contact information and links." />
-  <style>
-    :root {
-      --navy: #203a5f;
-      --red: #9f2f3f;
-      --cream: #f7f3ec;
-      --ink: #1f2430;
-      --muted: #6b7280;
-      --card: rgba(255,255,255,0.72);
-      --line: rgba(32,58,95,0.14);
-      --shadow: 0 18px 45px rgba(31,36,48,0.10);
-      --radius: 24px;
-      --max: 1100px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(159,47,63,0.08), transparent 34%),
-        radial-gradient(circle at top right, rgba(32,58,95,0.08), transparent 30%),
-        linear-gradient(180deg, #fbf8f2 0%, var(--cream) 55%, #f2ede4 100%);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .wrap {
-      width: min(calc(100% - 32px), var(--max));
-      margin: 0 auto;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(247,243,236,0.82);
-      border-bottom: 1px solid rgba(32,58,95,0.08);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 78px;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .brand strong {
-      font-size: 0.92rem;
-      color: var(--navy);
-    }
-
-    .brand span {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a {
-      color: var(--navy);
-      opacity: 0.9;
-    }
-
-    .nav-links a:hover { color: var(--red); }
-
-    .hero {
-      padding: 92px 0 48px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .hero-copy,
-    .hero-card,
-    .section-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.7);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-    }
-
-    .hero-copy {
-      padding: 56px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-copy::after {
-      content: "";
-      position: absolute;
-      inset: auto -80px -80px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(159,47,63,0.12), transparent 68%);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--red);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.78rem;
-    }
-
-    h1, h2, h3 {
-      margin: 0;
-      font-weight: 500;
-      line-height: 1.08;
-      color: var(--navy);
-    }
-
-    h1 {
-      font-size: clamp(2.9rem, 6vw, 5.5rem);
-      margin-bottom: 18px;
-    }
-
-    .hero-copy p {
-      margin: 0;
-      max-width: 38rem;
-      font-size: 1.05rem;
-      color: #2f3542;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 20px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 25px rgba(31,36,48,0.10);
-    }
-
-    .btn-primary {
-      background: var(--navy);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--navy);
-      border-color: rgba(32,58,95,0.18);
-    }
-
-    .hero-card {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 100%;
-    }
-
-    .photo-block {
-      min-height: 360px;
-      border-radius: 20px;
-      background:
-        linear-gradient(rgba(32,58,95,0.16), rgba(32,58,95,0.05)),
-        url('images/home-portrait.jpg') center/cover no-repeat,
-        linear-gradient(135deg, #d9d2c1, #ece5d8);
-      border: 1px solid rgba(32,58,95,0.08);
-    }
-
-    .hero-note {
-      padding-top: 20px;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    section {
-      padding: 18px 0 34px;
-    }
-
-    .section-head {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .section-head p {
-      margin: 10px auto 0;
-      max-width: 40rem;
-      color: var(--muted);
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .section-card {
-      padding: 28px;
-    }
-
-    .section-card h3 {
-      font-size: 1.35rem;
-      margin-bottom: 8px;
-    }
-
-    .section-card p {
-      margin: 0;
-      color: #3b4351;
-    }
-
-    .contact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .contact .section-card {
-      min-height: 100%;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .contact-item {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.68);
-      border: 1px solid var(--line);
-    }
-
-    .contact-item small {
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.7rem;
-      color: var(--red);
-      margin-bottom: 4px;
-    }
-
-    .contact-item a,
-    .contact-item span {
-      font-size: 1rem;
-      color: var(--navy);
-      word-break: break-word;
-    }
-
-    .mini-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .mini-links a {
-      padding: 10px 14px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--navy);
-      background: rgba(255,255,255,0.6);
-      font-size: 0.92rem;
-    }
-
-    footer {
-      padding: 26px 0 48px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid,
-      .contact,
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-copy {
-        padding: 38px 28px;
-      }
-
-      .photo-block {
-        min-height: 280px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        padding: 14px 0;
-        align-items: flex-start;
-      }
-
-      .nav,
-      .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      h1 {
-        font-size: clamp(2.3rem, 11vw, 4rem);
-      }
-
-      .hero {
-        padding-top: 48px;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>mikehayes330.com | The Hayes Family</title>
+  <meta name="description" content="Wedding details, travel info, and RSVP for Laura & Michael's wedding celebration." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Mike Hayes home">
-        <strong>Mike Hayes</strong>
-        <span>Contact & Links</span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="/Laura-michael/">Wedding Site</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#home" class="brand">The Hayes Family</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+      <nav class="nav desktop-nav" aria-label="Primary">
+        <a href="#contactForm">Contact</a>
       </nav>
     </div>
+    <nav id="mobileMenu" class="nav mobile-nav" aria-label="Mobile">
+      <a href="#contactForm">Contact</a>
+    </nav>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Welcome</p>
-          <h1>Simple, personal, and easy to reach.</h1>
-          <p>
-            This is the main landing page for MikeHayes330.com. If you are looking for wedding details,
-            head over to the Laura &amp; Michael celebration site. For anything else, use the contact info below.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Get in touch</a>
-            <a class="btn btn-secondary" href="/Laura-michael/">View wedding site</a>
-          </div>
+  <main id="home">
+    <section class="hero wrap">
+      <div class="red-line"></div>
+      <div class="hero-grid">
+        <figure class="hero-photo tall">
+          <img src="images/main.png" alt="Couple portrait placeholder" />
+        </figure>
+
+        <div class="hero-center">
+          <p class="hero-day">The</p>
+          <h1 class="hero-date">Hayes</h1>
+          <p class="hero-year">Family</p>
+          <figure class="hero-photo center-photo mobile-only-gap">
+            <img src="images/main.png" alt="Couple on a boat placeholder" />
+          </figure>
         </div>
 
-        <aside class="hero-card">
-          <div class="photo-block" aria-hidden="true"></div>
-          <p class="hero-note">
-            Replace this image with one that matches your wedding site style, your engagement photos,
-            or a clean Lake Erie / Sandusky image for a consistent feel.
-          </p>
-        </aside>
+        <figure class="hero-photo tall">
+          <img src="images/main.png" alt="Couple smiling placeholder" />
+        </figure>
+      </div>
+      <div class="red-line"></div>
+    </section>
+
+    
+
+
+    <section class="section wrap" id="travel">
+      <div class="section-head">
+        <p class="eyebrow">For Guests</p>
+        <h2>Travel &amp; Stay</h2>
+      </div>
+      <div class="travel-grid">
+        <a href="hotels-accommodations.html" class="card-link">
+        <article class="info-card">
+          <h3>Hotels</h3>
+          <p>For guests visiting from out of town, here are a few convenient places to stay
+            near the wedding weekend festivities.</p>
+        </article>
+        </a>
+        <a href="mikehayes.com/Laura-michael" class="card-link">
+        <article class="info-card">
+          <h3>The Wedding Website</h3>
+          <p>Check into the wedding website for the latest updates and details.</p>
+        </article>
+        </a>
+       <a href="things-to-do.html" class="card-link">
+         <article class="info-card">
+           <h3>Things To Do</h3>
+           <p>Downtown Sandusky, the waterfront, and Lake Erie spots make a fun weekend for out-of-town guests. Here are some of our favorites!!!</p>
+         </article>
+       </a>
       </div>
     </section>
 
-    <section id="about">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">A small home page</p>
-          <h2>Just enough without feeling empty.</h2>
-          <p>
-            The goal here is to keep the root domain polished and intentional while matching the same overall tone as the wedding site.
-          </p>
-        </div>
-
-        <div class="cards">
-          <article class="section-card">
-            <h3>Clean first impression</h3>
-            <p>
-              A simple landing page makes the root domain feel finished instead of looking like a placeholder or broken site.
-            </p>
-          </article>
-
-          <article class="section-card">
-            <h3>Matches your wedding brand</h3>
-            <p>
-              Soft cream background, navy and red accents, elegant serif type, and roomy spacing keep it visually tied to what you already built.
-            </p>
-          </article>
-
-          <article class="section-card">
-            <h3>Easy to maintain</h3>
-            <p>
-              It is one file, easy to host, and simple to update whenever you want to swap text, photos, or contact links.
-            </p>
-          </article>
-        </div>
+    <section class="section wrap" id="rsvp">
+      <div class="section-head">
+        <p class="eyebrow">Get in Touch</p>
+        <h2>Contact Us</h2>
+        <p class="section-copy">We’re glad you’re here. Whether you're reaching out about visiting Sandusky, boating on Lake Erie, visiting Cedar Point or just want to say hello—feel free to connect.</p>
       </div>
-    </section>
 
-    <section id="contact">
-      <div class="wrap contact">
-        <div class="section-card">
-          <p class="eyebrow">Contact</p>
-          <h2>Reach out</h2>
-          <p>
-            Add the best ways for people to get ahold of you. I left these as placeholders so you can swap them out fast.
-          </p>
+      <form id="contactForm" class="rsvp-form" action="contact-form-handler.php" method="POST">
+        <div class="form-grid">
+          <label>
+            Full Name
+            <input type="text" name="fullName" required />
+          </label>
 
-          <div class="contact-list">
-            <div class="contact-item">
-              <small>Email</small>
-              <a href="mailto:you@example.com">you@example.com</a>
-            </div>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
 
-            <div class="contact-item">
-              <small>Phone</small>
-              <a href="tel:+15555555555">(555) 555-5555</a>
-            </div>
-
-            <div class="contact-item">
-              <small>Location</small>
-              <span>Sandusky, Ohio</span>
-            </div>
-          </div>
         </div>
 
-        <div class="section-card">
-          <p class="eyebrow">Quick links</p>
-          <h2>Where to go next</h2>
-          <p>
-            Keep this side focused on the main destinations you want visitors to click.
-          </p>
+        <label>
+          Message
+          <textarea name="notes" rows="4" placeholder="What would you like to say?"></textarea>
+        </label>
 
-          <div class="mini-links">
-            <a href="/Laura-michael/">Wedding website</a>
-            <a href="#top">Back to top</a>
-            <a href="mailto:you@example.com">Send email</a>
-          </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Send Message</button>
+          <p id="formStatus" class="form-status" aria-live="polite"></p>
         </div>
-      </div>
+      </form>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      MikeHayes330.com
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>The Hayes · July 2026 · Sandusky, Ohio</p>
+      <p class="tiny"></p>
     </div>
   </footer>
+
+  <script>
+    window.RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhN6H_ygTVQNmCnjzAKOBobSBve5Ax1VGTdCrNxM1oUUIgHX6aSYMpY9sPnYg9Fr9J/exec';
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
